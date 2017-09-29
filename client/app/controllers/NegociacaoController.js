@@ -12,10 +12,16 @@ class NegociacaoController {
         // cancela a submissão do formulário
         event.preventDefault();
 
-        let data = new Date(this._inputData.value.split('-'));
+        // let data = new Date(this._inputData.value.split('-'));
+        //mesma soluçõa usando spread operator
+        let data = new Date(...this._inputData
+            .value
+            .split('-')
+            .map((item, indice) => item - indice % 2)
+        );
 
         let negociacao = new Negociacao(
-            this._inputData.value,
+            data,
             parseInt(this._inputQuantidade.value),
             parseFloat(this._inputValor.value)
         );
